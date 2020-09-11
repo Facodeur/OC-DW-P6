@@ -6,9 +6,13 @@ const path = require('path');
 const SauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
+const dotenv = require('dotenv').config();
+const user = process.env.DB_USER;
+const pwd = process.env.DB_PASS;
+
 const app = express();
 
-mongoose.connect('mongodb+srv://facodeur:facodeur1234@cluster0.je0rp.mongodb.net/<dbname>?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${user}:${pwd}@cluster0.je0rp.mongodb.net/<dbname>?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -30,8 +34,3 @@ app.use('/api/auth', userRoutes);
 
 module.exports = app;
 
-
-// const mongoose = require('mongoose');
-// const dotenv = require('dotenv').config();
-// let db = process.env.DB_USER; const pwd = process.env.DB_PASS; let dbName = process.env.DB_NAME;
-// mongoose.connect(`mongodb+srv://${db}:${pwd}@cluster-p-six-oc-kum0q.mongodb.net/${dbName}?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true })
