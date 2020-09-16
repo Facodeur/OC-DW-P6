@@ -41,12 +41,9 @@ exports.likeSauce = (req, res, next) => {
             if (like === 0) {
                 res.status(200).json({ message: user + " je suis neutre " })
             }
-        });
+        }).catch(error => res.status(500).json({ error }));
 };
 
-//, { $pull: { userLiked: user, usersDisliked: user }}, { multi: true }
-// .then(() => res.status(200).json({ message: user + " pas d'avis " }))
-//.catch(error => res.status(400).json({ error }));
 exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;
