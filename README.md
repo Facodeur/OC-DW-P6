@@ -1,10 +1,10 @@
 # OC-DW-P6
 
-###Prérequis
+### Prérequis
 
-####Avoir node.js installer sur votre machine
+#### Avoir node.js installer sur votre machine
 
-###Installation
+### Installation
 
-####Cloner le repo. À partir dossier, executer npm install.
-####Ensuite pour lancer le serveur executer npm start.
+#### Cloner le repo. À partir dossier, executer npm install.
+#### Ensuite pour lancer le serveur executer npm start.
