@@ -6,7 +6,7 @@ const path = require('path');
 const SauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const user = process.env.DB_USER;
 const pwd = process.env.DB_PASS;
 
