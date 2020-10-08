@@ -67,13 +67,14 @@ exports.createSauce = (req, res, next) => {
 
 // Gestion modification sauce
 exports.modifySauce = (req, res, next) => {
-    const sauceObject = req.file ? {
-        ...JSON.parse(req.body.sauce),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : {...req.body };
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
-            if (req.body.userId == sauce.userId) { // controle que le userId correspond userId de la sauce pour autorisé la modif
+            const sauceObject = req.file ? {
+                    ...JSON.parse(req.body.sauce),
+                    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                } : {...req.body };
+
+            if (req.internalUserId == sauce.userId) { // controle que le userId correspond userId de la sauce pour autorisé la modif
                 const filename = req.file ? sauce.imageUrl.split('/images/')[1] : "";
                 fs.unlink(`images/${filename}`, () => {
                     Sauce.updateOne({ _id: req.params.id }, {...sauceObject, _id: req.params.id })
@@ -85,9 +86,8 @@ exports.modifySauce = (req, res, next) => {
                 fs.unlink(`images/${filename}`, () => {
                     res.status(401).json({ error: "Unauthorized" });
                 });
-            }
+             }
         }).catch(error => res.status(404).json({ error }));
-
 };
 
 // Gestion de suppression sauce
